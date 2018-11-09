@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { FeatureVariable } from './react-sdk';
 
-class Homepage extends Component {
+import Example from './Example'
+
+class FeatureVariableExample extends Component {
   render() {
     return (
-      <div>
+      <Example title='FeatureVariable example'>
         <h1>
           <FeatureVariable feature='feature1' variable='header' >
             Default header
@@ -15,9 +17,9 @@ class Homepage extends Component {
             Content
           </FeatureVariable>
         </p>
-      </div>
+      </Example>
     );
   }
 }
 
-export default Homepage
+export default FeatureVariableExample
