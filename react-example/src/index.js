@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 ;(async function () {
-  const resp = await fetch('https://cdn.optimizely.com/datafiles/GaXr9RoDhRcqXJm3ruskRa.json?OPTIMIZELY_NOCACHE=1', { mode: 'cors' });
+  const resp = await fetch('https://optimizely.s3.amazonaws.com/datafiles/BsSyVRsUbE3ExgGCJ9w1to.json', { mode: 'cors' });
   let datafile = await resp.json();
 
   ReactDOM.render(<App datafile={datafile} />, document.getElementById('root'));

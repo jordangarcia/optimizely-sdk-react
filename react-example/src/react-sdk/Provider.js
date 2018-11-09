@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import optimizely from '@optimizely/optimizely-sdk'
 
+import Datafile from './Datafile'
 import OptimizelyContext from './OptimizelyContext'
 
 class OptimizelyProvider extends Component {
@@ -20,31 +21,48 @@ class OptimizelyProvider extends Component {
       ...sdkOptions,
     });
 
-    this.userId = userId;
+    this.datafile = new Datafile(datafile);
 
-    this.enabledFeatures = this.instance.getEnabledFeatures(userId);
+    this.state = {
+      userId,
+      attributes: { ...attributes },
+    }
+
+    this.featureVariableGetters = {
+      'string': this.instance.getFeatureVariableString.bind(this.instance),
+      'boolean': this.instance.getFeatureVariableBoolean.bind(this.instance),
+      'double': this.instance.getFeatureVariableDouble.bind(this.instance),
+      'integer': this.instance.getFeatureVariableInteger.bind(this.instance),
+    };
 
     this.api = {
       getFeatureVariable: this.getFeatureVariable,
-    }
-
-    this.state = {
-      attributes: { ...attributes },
-    }
+      isFeatureEnabled: this.isFeatureEnabled,
+    };
   }
+
 
   getFeatureVariable = (feature, variable) => {
     if (!this.isFeatureEnabled(feature)) {
       return null;
     }
 
-    const { attributes } = this.state;
-    return this.instance.getFeatureVariableString(feature, variable, this.userId, attributes)
+    const { attributes, userId } = this.state;
+    const variableType = this.datafile.getFeatureVariableType(feature, variable)
+    if (!variableType) {
+      return null;
+    }
+    const getFn = this.featureVariableGetters[variableType]
+    if (!getFn) {
+      return null;
+    }
+
+    return getFn(feature, variable, userId, attributes)
   }
 
   isFeatureEnabled = (feature) => {
-    const { attributes } = this.state;
-    return this.instance.isFeatureEnabled(feature, this.userId, attributes)
+    const { attributes, userId } = this.state;
+    return this.instance.isFeatureEnabled(feature, userId, attributes)
   }
 
   render() {
