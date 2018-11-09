@@ -37,10 +37,31 @@ class OptimizelyProvider extends Component {
 
     this.api = {
       getFeatureVariable: this.getFeatureVariable,
+      getFeatureVariables: this.getFeatureVariables,
       isFeatureEnabled: this.isFeatureEnabled,
     };
   }
 
+  getFeatureVariables = (feature) => {
+    const { attributes, userId } = this.state;
+    const variableDefs = this.datafile.getVariablesForFeature(feature);
+    if (!variableDefs) {
+      // TODO: error
+      return {}
+    }
+
+    const variableObj = {}
+    variableDefs.forEach((({ key, type }) => {
+      const getFn = this.featureVariableGetters[type]
+      const value = getFn
+        ? getFn(feature, key, userId, attributes)
+        : null
+
+      variableObj[key] = value
+    }))
+
+    return variableObj
+  }
 
   getFeatureVariable = (feature, variable) => {
     if (!this.isFeatureEnabled(feature)) {
@@ -56,7 +77,6 @@ class OptimizelyProvider extends Component {
     if (!getFn) {
       return null;
     }
-
     return getFn(feature, variable, userId, attributes)
   }
 

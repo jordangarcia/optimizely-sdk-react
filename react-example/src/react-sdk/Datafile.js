@@ -7,6 +7,15 @@ export default class Datafile {
     this.datafile = datafile;
   }
 
+  getVariablesForFeature(feature) {
+    const featureDef = find(this.datafile.featureFlags, { key: feature })
+    if (!featureDef) {
+      return null
+    }
+
+    return featureDef.variables
+  }
+
   getFeatureVariableType(feature, variable) {
     const variableDef =  this.__getVariableDef(feature, variable)
     if (!variableDef) {

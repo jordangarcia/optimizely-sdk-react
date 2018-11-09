@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { FeatureVariable } from './react-sdk';
+import React from 'react';
 
 export default function example({ title='', children }) {
   return <div class="example">
     <h5 class="example-title">{title}</h5>
-    {children}
+    <div class="example-body">
+      {children}
+    </div>
   </div>
 }

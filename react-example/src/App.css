@@ -6,8 +6,7 @@
 }
 
 .example {
-  width: 500;
-  padding: 0 20px 10px;
+  width: 500px;
   margin-bottom: 20px;
   background: #fdfdf;
   border: 1px solid #ddd;
@@ -17,7 +16,10 @@
 .example-title {
   font-style: italic;
   padding: 5px;
-  margin: 0 -20px;
+  margin: 0px;
   background: #ddd;
+}
 
+.example-body {
+  padding: 10px 20px;
 }

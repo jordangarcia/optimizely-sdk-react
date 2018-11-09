@@ -1,44 +1,100 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# optimizely-sdk-react
 
-## Available Scripts
+### Examples
 
-In the project directory, you can run:
+#### Providing Optimizely
 
-### `npm start`
+`index.js`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+;(async function () {
+  const resp = await fetch('https://optimizely.s3.amazonaws.com/datafiles/BsSyVRsUbE3ExgGCJ9w1to.json', { mode: 'cors' });
+  let datafile = await resp.json();
 
-### `npm test`
+  ReactDOM.render(<App datafile={datafile} />, document.getElementById('root'));
+})();
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`App.js`
 
-### `npm run build`
+```js
+import React, { Component } from 'react';
+import { OptimizelyProvider } from './react-sdk';
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+class App extends Component {
+  static propTypes = {
+    datafile: PropTypes.object,
+  };
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+  render() {
+    const { datafile } = this.props;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    return (
+      <OptimizelyProvider datafile={datafile} userId='jordan'>
+        {/* APP GOES HERE */}
+      </OptimizelyProvider>
+    );
+  }
+}
+```
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Is feature enabled
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+*`<Feature />`*
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```js
+import { Feature } from './react-sdk';
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+class App extends Component {
+  render() {
+    return (
+      <Feature
+        feature="feature1"
+        renderEnabled={(featureVariables) => (
+          <div>
+            "feature1" is enabled
+            <pre>
+              {JSON.stringify(featureVariables, null, '  ')}
+            </pre>
+          </div>
+        )}
+        renderDisabled={() => `Feature1 is disabled`}
+      />
+    );
+  }
+}
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Feature variable
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+*`<FeatureVariable />`*
+
+```js
+import { FeatureVariable } from './react-sdk';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>
+          <FeatureVariable feature='feature1' variable='header' >
+            Default header
+          </FeatureVariable>
+        </h1>
+        <p>
+          <FeatureVariable feature='feature1' variable='content' >
+            Content
+          </FeatureVariable>
+        </p>
+      </div>
+    );
+  }
+}
+```
+

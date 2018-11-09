@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import OptimizelyProvider from './Provider'
 import withProvider from './withProvider'
-
 
 class FeatureVariable extends Component {
   static propTypes = {

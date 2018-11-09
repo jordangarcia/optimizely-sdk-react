@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import OptimizelyProvider from './Provider'
 import withProvider from './withProvider'
 
 
@@ -19,21 +18,29 @@ class Feature extends Component {
       optimizely,
     } = this.props
 
+    let featureValues = {};
+    const isEnabled = optimizely.isFeatureEnabled(feature);
+    if (isEnabled) {
+      featureValues = optimizely.getFeatureVariables(feature)
+    }
+
     this.state = {
-      isEnabled: optimizely.isFeatureEnabled(feature),
+      isEnabled,
+      featureValues,
     }
   }
 
   render() {
+    const { isEnabled, featureValues } = this.state;
     const {
-      value,
-    } = this.state;
+      renderEnabled,
+      renderDisabled
+    } = this.props;
 
-    if (value) {
-      return value;
-    }
-    return this.props.children;
+    return isEnabled
+      ? renderEnabled(featureValues)
+      : renderDisabled()
   }
 }
 
-export default withProvider(FeatureVariable);
+export default withProvider(Feature);
