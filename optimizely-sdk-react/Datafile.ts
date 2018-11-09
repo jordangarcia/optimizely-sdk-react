@@ -2,7 +2,7 @@ import * as _ from 'lodash'
 
 const find = _.find
 
-export type Datafile = {
+export type OptimizelyDatafile = {
   readonly version: string;
   readonly projectId: string;
   readonly accountId: string;
@@ -76,11 +76,13 @@ export type ExperimentVariationVariables = {
 
 }
 
-export type ExperimentVariation = {
-  readonly variables: ExperimentVariationVariables;
-  readonly id: string;
-  readonly key: string;
-  readonly featureEnabled: boolean;
+namespace Experiment {
+  export type Variation = {
+    readonly variables: ExperimentVariationVariables;
+    readonly id: string;
+    readonly key: string;
+    readonly featureEnabled: boolean;
+  }
 }
 
 export type Experiment = {
@@ -90,18 +92,18 @@ export type Experiment = {
   readonly layerId: string;
   readonly trafficAllocation: TrafficAllocation[];
   readonly audienceIds: string[];
-  readonly variations: ExperimentVariation[];
+  readonly variations: Experiment.Variation[];
   readonly forcedVariations: object; /** readonly TODO: type */
 }
 
-interface IDatafileReader {
-  readonly datafile: Datafile;
+export interface IDatafileWrapper {
+  readonly datafile: OptimizelyDatafile;
 }
 
-export default class DatafileReader implements IDatafileReader {
-  readonly datafile: Datafile;
+export class DatafileWrapper implements IDatafileWrapper {
+  readonly datafile: OptimizelyDatafile;
 
-  constructor(datafile: Datafile) {
+  constructor(datafile: OptimizelyDatafile) {
     this.datafile = datafile;
   }
 
@@ -114,7 +116,7 @@ export default class DatafileReader implements IDatafileReader {
     return featureDef.variables
   }
 
-  getFeatureVariableType(feature: string, variable: string) : VariableType {
+  getFeatureVariableType(feature: string, variable: string) : VariableType | null {
     const variableDef =  this.__getVariableDef(feature, variable)
     if (!variableDef) {
       return null;
@@ -123,7 +125,7 @@ export default class DatafileReader implements IDatafileReader {
     return variableDef.type
   }
 
-  __getVariableDef(feature: string, variable: string) : VariableDef | null{
+  __getVariableDef(feature: string, variable: string) : VariableDef | null {
     const featureDef = find(this.datafile.featureFlags, { key: feature })
     if (!featureDef) {
       return null
