@@ -19,10 +19,7 @@ class App extends Component {
     const { datafile } = this.props;
 
     return (
-      <OptimizelyProvider
-        datafile={datafile}
-        //datafileUrl="https://cdn.optimizely.com/datafiles/GaXr9RoDhRcqXJm3ruskRa.json?OPTIMIZELY_NOCACHE=1"
-      >
+      <OptimizelyProvider datafile={datafile} userId='jordan'>
         <div className="App">
           <Homepage />
         </div>
