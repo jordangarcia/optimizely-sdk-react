@@ -24,7 +24,7 @@ export interface OptimizelySDK {
   isFeatureEnabled: (feature: string, userid: string, attributes: object | undefined) => boolean,
 }
 
-class OptimizelyProvider extends React.Component<OptimizelyProviderProps, OptimizelyProviderState> {
+export class OptimizelyProvider extends React.Component<OptimizelyProviderProps, OptimizelyProviderState> {
   datafileWrapper: DatafileWrapper;
   api: OptimizelySDKReactAPI;
   featureVariableGetters: {
@@ -123,5 +123,3 @@ class OptimizelyProvider extends React.Component<OptimizelyProviderProps, Optimi
     )
   }
 }
-
-export default OptimizelyProvider

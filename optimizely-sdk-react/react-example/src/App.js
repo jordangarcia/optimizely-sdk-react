@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import './App.css';
 import Example from './Example'
 
-import {
-  OptimizelyProvider,
-  Feature,
-  FeatureVariable,
-} from './react-sdk';
+import { OptimizelyProvider } from './optimizely-sdk-react/Provider'
+import { OptimizelyFeature } from './optimizely-sdk-react/Feature'
+import { OptimizelyFeatureVariable } from './optimizely-sdk-react/FeatureVariable'
 
 
 class App extends Component {
@@ -17,6 +15,7 @@ class App extends Component {
   };
 
   render() {
+    debugger
     const { datafile } = this.props;
 
     return (
@@ -24,19 +23,19 @@ class App extends Component {
         <div className="App">
           <Example title='FeatureVariable example'>
             <h1>
-              <FeatureVariable feature='feature1' variable='header' >
+              <OptimizelyFeature feature='feature1' variable='header' >
                 Default header
-              </FeatureVariable>
+              </OptimizelyFeature>
             </h1>
             <p>
-              <FeatureVariable feature='feature1' variable='content' >
+              <OptimizelyFeatureVariable feature='feature1' variable='content' >
                 Content
-              </FeatureVariable>
+              </OptimizelyFeatureVariable>
             </p>
           </Example>
 
           <Example title='Feature example'>
-            <Feature
+            <OptimizelyFeature
               feature="feature1"
               renderEnabled={(featureVariables) => (
                 <div>

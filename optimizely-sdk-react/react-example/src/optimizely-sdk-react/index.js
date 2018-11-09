@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Feature_1 = require("./Feature");
 exports.OptimizelyFeature = Feature_1.OptimizelyFeature;
+var Provider_1 = require("./Provider");
+exports.OptimizelyProvider = Provider_1.OptimizelyProvider;
 var FeatureVariable_1 = require("./FeatureVariable");
 exports.OptimizelyFeatureVariable = FeatureVariable_1.OptimizelyFeatureVariable;
 var withProvider_1 = require("./withProvider");

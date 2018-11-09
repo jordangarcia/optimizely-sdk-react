@@ -95,4 +95,4 @@ var OptimizelyProvider = /** @class */ (function (_super) {
     };
     return OptimizelyProvider;
 }(React.Component));
-exports.default = OptimizelyProvider;
+exports.OptimizelyProvider = OptimizelyProvider;
