@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "module": "commonjs",
+    "outDir": "./dist/"
+  },
+
+  "exclude": [
+    "node_modules"
+  ]
+}

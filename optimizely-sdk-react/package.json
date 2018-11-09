@@ -1,0 +1,12 @@
+{
+  "name": "optimizely-sdk-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash": "^4.14.118",
+    "@types/react": "^16.4.18",
+    "lodash": "^4.17.11",
+    "react": "^16.6.1"
+  }
+}
