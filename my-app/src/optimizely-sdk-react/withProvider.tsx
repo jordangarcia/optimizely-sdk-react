@@ -1,22 +1,33 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = require("react");
-const OptimizelyContext_1 = require("./OptimizelyContext");
-function withFn(a) {
-    return [a, a];
+import * as React from "react";
+import {
+  OptimizelyContextConsumer,
+  OptimizelySDKReactAPI
+} from "./OptimizelyContext";
+import { Subtract } from "utility-types";
+
+export interface WithOptimizelyProps {
+  optimizely: OptimizelySDKReactAPI | null;
 }
-function withOptimizely(Component) {
-    return class WithOptimizely extends React.Component {
-        render() {
-            return (<OptimizelyContext_1.OptimizelyContextConsumer>
-          {context => <Component {...this.props} optimizely={context}/>}
-        </OptimizelyContext_1.OptimizelyContextConsumer>);
-        }
-    };
+
+export function withOptimizely<P extends WithOptimizelyProps>(
+  Component: React.ComponentType<P>
+) {
+  return class WithOptimizely extends React.Component<
+    Subtract<P, WithOptimizelyProps>
+  > {
+    render() {
+      return (
+        <OptimizelyContextConsumer>
+          {context => <Component {...this.props} optimizely={context} />}
+        </OptimizelyContextConsumer>
+      );
+    }
+  };
 }
-exports.withOptimizely = withOptimizely;
+
 // type WrappedComponentPropsExceptProvided = Exclude<keyof WrappedComponentProps, keyof WithOptimizelyProps>;
 // type ForwardedProps = Pick<WrappedComponentProps, WrappedComponentPropsExceptProvided>;
+
 // function withOptimizely<C extends React.ComponentType>(
 //   Comp: C
 // ) : C {
@@ -26,6 +37,7 @@ exports.withOptimizely = withOptimizely;
 //     }
 //   };
 // }
+
 // const withOptimizely = <C>(
 //   Component: C<P>
 // ) : C<P> =>
