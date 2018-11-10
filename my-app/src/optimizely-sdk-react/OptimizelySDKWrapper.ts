@@ -2,20 +2,18 @@ import * as _ from "lodash";
 import * as optimizely from "@optimizely/optimizely-sdk";
 
 import {
-  OptimizelyContextProvider,
-  VariableValue,
-  OptimizelySDKReactAPI,
-  VariableValuesObject
-} from "./OptimizelyContext";
-import {
   OptimizelyDatafile,
-  DatafileWrapper,
   VariableDef,
   VariableType
 } from "./Datafile";
-import { string } from "prop-types";
 
 const find = _.find;
+
+export type VariableValue  = string | boolean | number;
+
+export type VariableValuesObject = {
+    [key: string]: VariableValue
+}
 
 export interface IOptimizelySDKWrapper {
   datafile: OptimizelyDatafile;
@@ -31,7 +29,7 @@ export interface IOptimizelySDKWrapper {
   track: (eventKey: string, eventTags?: optimizely.EventTags) => void;
 }
 
-type OptimizelySDKWrapperConfig = {
+export type OptimizelySDKWrapperConfig = {
   datafile: OptimizelyDatafile;
   userId: string;
   attributes?: optimizely.UserAttributes;

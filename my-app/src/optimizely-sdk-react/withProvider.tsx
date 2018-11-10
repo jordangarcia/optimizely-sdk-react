@@ -1,12 +1,10 @@
 import * as React from "react";
-import {
-  OptimizelyContextConsumer,
-  OptimizelySDKReactAPI
-} from "./OptimizelyContext";
+import { OptimizelyContextConsumer } from "./OptimizelyContext";
 import { Subtract } from "utility-types";
+import { OptimizelySDKWrapper } from "./OptimizelySDKWrapper";
 
 export interface WithOptimizelyProps {
-  optimizely: OptimizelySDKReactAPI | null;
+  optimizely: OptimizelySDKWrapper | null;
 }
 
 export function withOptimizely<P extends WithOptimizelyProps>(

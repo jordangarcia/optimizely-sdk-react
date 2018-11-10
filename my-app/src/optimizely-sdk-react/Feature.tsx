@@ -1,10 +1,7 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 import { withOptimizely, WithOptimizelyProps } from "./withProvider";
-import {
-  OptimizelySDKReactAPI,
-  VariableValuesObject
-} from "./OptimizelyContext";
+import { VariableValuesObject } from "./OptimizelySDKWrapper";
 
 export interface FeatureProps extends WithOptimizelyProps {
   feature: string;

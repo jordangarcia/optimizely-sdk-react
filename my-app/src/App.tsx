@@ -10,7 +10,7 @@ import {
   OptimizelyProvider,
 } from './optimizely-sdk-react'
 import { OptimizelyDatafile } from './optimizely-sdk-react/Datafile';
-import { VariableValuesObject } from './optimizely-sdk-react/OptimizelyContext';
+import { VariableValuesObject } from './optimizely-sdk-react/OptimizelySDKWrapper';
 
 
 interface AppProps {
