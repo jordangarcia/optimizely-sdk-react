@@ -117,7 +117,7 @@ export class DatafileWrapper implements IDatafileWrapper {
   }
 
   getFeatureVariableType(feature: string, variable: string) : VariableType | null {
-    const variableDef =  this.__getVariableDef(feature, variable)
+    const variableDef =  this.getVariableDef(feature, variable)
     if (!variableDef) {
       return null;
     }
@@ -125,7 +125,7 @@ export class DatafileWrapper implements IDatafileWrapper {
     return variableDef.type
   }
 
-  __getVariableDef(feature: string, variable: string) : VariableDef | null {
+  private getVariableDef(feature: string, variable: string) : VariableDef | null {
     const featureDef = find(this.datafile.featureFlags, { key: feature })
     if (!featureDef) {
       return null
