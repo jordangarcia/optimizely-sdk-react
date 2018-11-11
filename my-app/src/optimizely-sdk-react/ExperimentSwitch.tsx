@@ -4,13 +4,13 @@ import { VariableValuesObject, VariableValue } from './OptimizelySDKWrapper'
 import { MatchProps } from './Match'
 
 export interface ExperimentSwitchProps extends WithOptimizelyProps {
-  experimentKey: string
+  experiment: string
   matcher?: (a: SelectedVariation, b: any) => boolean
 }
 
 type SelectedVariation = string | null
 
-export interface ExperimentSwitchState {
+interface ExperimentSwitchState {
   selectedVariation: SelectedVariation
 }
 
@@ -21,12 +21,12 @@ class ExperimentSwitch extends React.Component<
   constructor(props: ExperimentSwitchProps) {
     super(props)
 
-    const { optimizely, experimentKey } = this.props
+    const { optimizely, experiment } = this.props
     if (optimizely === null) {
       throw new Error('optimizely prop must be supplied')
     }
 
-    const selectedVariation = optimizely.activate(experimentKey)
+    const selectedVariation = optimizely.activate(experiment)
     this.state = {
       selectedVariation,
     }
@@ -62,7 +62,7 @@ class ExperimentSwitch extends React.Component<
     )
 
     return match
-      ? React.cloneElement(match, { selectedVariation: selectedVariation })
+      ? React.cloneElement(match, { selectedVariation: selectedVariation, variableValues: {} })
       : null
   }
 }

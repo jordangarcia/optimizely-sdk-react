@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { VariableValuesObject } from './OptimizelySDKWrapper'
 
-type ChildrenRenderFunction = (variableValues?: VariableValuesObject) => React.ReactNode
+type ChildrenRenderFunction = (variableValues: VariableValuesObject) => React.ReactNode
 
 export type MatchProps = {
   value?: any
   default?: any
-  render?: (variableValues?: VariableValuesObject) => React.ReactNode
+  render?: (variableValues: VariableValuesObject) => React.ReactNode
   children?: ChildrenRenderFunction | React.ReactNode
   variableValues?: VariableValuesObject
 }
@@ -22,12 +22,12 @@ class Match extends React.Component<MatchProps, {}> {
     let toRender: React.ReactNode | null = null
     if (children != null) {
       if (typeof children === 'function') {
-        toRender = (children as ChildrenRenderFunction)(variableValues)
+        toRender = (children as ChildrenRenderFunction)(variableValues || {})
       } else if (children) {
         toRender = children
       }
     } else if (render) {
-      toRender = render(variableValues)
+      toRender = render(variableValues || {})
     }
 
     return toRender
