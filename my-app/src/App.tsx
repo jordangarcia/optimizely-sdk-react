@@ -8,6 +8,8 @@ import {
   OptimizelyFeature,
   OptimizelyFeatureVariable,
   OptimizelyProvider,
+  OptimizelyExperimentSwitch,
+  OptimizelyMatch,
 } from './optimizely-sdk-react'
 import { OptimizelyDatafile } from './optimizely-sdk-react/Datafile';
 import { VariableValuesObject } from './optimizely-sdk-react/OptimizelySDKWrapper';
@@ -28,6 +30,24 @@ class App extends React.Component<AppProps> {
     return (
       <OptimizelyProvider datafile={datafile} userId='jordan'>
         <div className="App">
+          <Example title='Experiment Example'>
+            <OptimizelyExperimentSwitch experimentKey="abtest1">
+              <OptimizelyMatch value="var1">
+                Variation 1
+              </OptimizelyMatch>
+              <OptimizelyMatch value="var2">
+                Variation 2
+              </OptimizelyMatch>
+            </OptimizelyExperimentSwitch>
+          </Example>
+
+          <Example title='Experiment Example 2'>
+            <OptimizelyExperimentSwitch experimentKey="abtest1">
+              <OptimizelyMatch value="var1" render={() => <h1>variation 1</h1>} />
+              <OptimizelyMatch default render={() => <h1>variation 2 (default)</h1>} />
+            </OptimizelyExperimentSwitch>
+          </Example>
+
           <Example title='FeatureVariable2 example'>
             <p>
               <OptimizelyFeatureVariable feature="feature1" variable="content"></OptimizelyFeatureVariable>

@@ -1,6 +1,6 @@
-export { OptimizelyFeature } from "./Feature";
-export { OptimizelyProvider } from "./Provider";
-export { OptimizelyFeatureVariable } from "./FeatureVariable";
-export { withOptimizely } from "./withProvider";
-
-
+export { OptimizelyFeature } from './Feature'
+export { OptimizelyProvider } from './Provider'
+export { OptimizelyFeatureVariable } from './FeatureVariable'
+export { withOptimizely } from './withOptimizely'
+export { OptimizelyExperimentSwitch } from './ExperimentSwitch'
+export { OptimizelyMatch } from './Match'

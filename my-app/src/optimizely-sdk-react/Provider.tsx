@@ -1,47 +1,47 @@
-import * as React from "react";
-import * as optimizely from "@optimizely/optimizely-sdk";
+import * as React from 'react'
+import * as optimizely from '@optimizely/optimizely-sdk'
 
-import { OptimizelyContextProvider } from "./OptimizelyContext";
-import { OptimizelyDatafile, DatafileWrapper } from "./Datafile";
-import { OptimizelySDKWrapper } from "./OptimizelySDKWrapper";
+import { OptimizelyContextProvider } from './Context'
+import { OptimizelyDatafile, DatafileWrapper } from './Datafile'
+import { OptimizelySDKWrapper } from './OptimizelySDKWrapper'
 
 interface OptimizelyProviderProps {
-  userId: string;
-  datafile: OptimizelyDatafile;
-  sdkOptions?: object;
-  attributes?: optimizely.UserAttributes;
-  bucketingId?: string;
+  userId: string
+  datafile: OptimizelyDatafile
+  sdkOptions?: object
+  attributes?: optimizely.UserAttributes
+  bucketingId?: string
 }
 
 interface OptimizelyProviderState {
-  userId: string;
-  attributes: optimizely.UserAttributes | undefined;
+  userId: string
+  attributes: optimizely.UserAttributes | undefined
 }
 
 export class OptimizelyProvider extends React.Component<
   OptimizelyProviderProps,
   OptimizelyProviderState
 > {
-  sdkWrapper: OptimizelySDKWrapper;
+  sdkWrapper: OptimizelySDKWrapper
 
   constructor(props: OptimizelyProviderProps) {
-    super(props);
+    super(props)
 
-    const { datafile, sdkOptions, userId, attributes, bucketingId } = props;
+    const { datafile, sdkOptions, userId, attributes, bucketingId } = props
     this.sdkWrapper = new OptimizelySDKWrapper({
       datafile,
       userId,
       attributes,
-      bucketingId
-    });
+      bucketingId,
+    })
   }
 
   render() {
-    const { children } = this.props;
+    const { children } = this.props
     return (
       <OptimizelyContextProvider value={this.sdkWrapper}>
         {children}
       </OptimizelyContextProvider>
-    );
+    )
   }
 }

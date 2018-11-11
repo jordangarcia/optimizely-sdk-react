@@ -1,26 +1,24 @@
-import * as React from "react";
-import { OptimizelyContextConsumer } from "./OptimizelyContext";
-import { Subtract } from "utility-types";
-import { OptimizelySDKWrapper } from "./OptimizelySDKWrapper";
+import * as React from 'react'
+import { OptimizelyContextConsumer } from './Context'
+import { Subtract } from 'utility-types'
+import { OptimizelySDKWrapper } from './OptimizelySDKWrapper'
 
 export interface WithOptimizelyProps {
-  optimizely: OptimizelySDKWrapper | null;
+  optimizely: OptimizelySDKWrapper | null
 }
 
 export function withOptimizely<P extends WithOptimizelyProps>(
-  Component: React.ComponentType<P>
+  Component: React.ComponentType<P>,
 ) {
-  return class WithOptimizely extends React.Component<
-    Subtract<P, WithOptimizelyProps>
-  > {
+  return class WithOptimizely extends React.Component<Subtract<P, WithOptimizelyProps>> {
     render() {
       return (
         <OptimizelyContextConsumer>
           {context => <Component {...this.props} optimizely={context} />}
         </OptimizelyContextConsumer>
-      );
+      )
     }
-  };
+  }
 }
 
 // type WrappedComponentPropsExceptProvided = Exclude<keyof WrappedComponentProps, keyof WithOptimizelyProps>;
