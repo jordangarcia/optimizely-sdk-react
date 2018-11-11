@@ -9,11 +9,11 @@ This is required at the root level and leverages React’s `Context` API to allo
 * `bucketingId? : string`
 * `attributes? : object`
 
-```js
+```jsx
 import { OptimizelyProvider } from 'optimizely-sdk-react'
 
 class App extends React.Component {
-	render() {
+  render() {
     return (
       <OptimizelyProvider
         datafile={datafile}
@@ -28,18 +28,18 @@ class App extends React.Component {
 # Use Cases
 ## Experiment
 ### Switch based on variation
-```js
+```jsx
 <OptimizelyExperimentSwitch experiment='exp1'>
   <OptimizelyMatch value="variation1">
-	  <Comp1 />
+    <Comp1 />
   </OptimizelyMatch>
 
   <OptimizelyMatch value="variation2">
-	  <Comp2 />
+    <Comp2 />
   </OptimizelyMatch>
 
   <OptimizelyMatch default>
-	  <Comp3 />
+    <Comp3 />
   </OptimizelyMatch>
 </OptimizelyExperimentSwitch>
 ```
@@ -47,7 +47,7 @@ class App extends React.Component {
 
 ## Feature / Feature Variables
 ### Render a string
-```js
+```jsx
 <OptimizelyFeatureVariables
   feature='feature1'
   renderVariables={({ header }) => <h1>{header}</h1>}
@@ -55,7 +55,7 @@ class App extends React.Component {
 ```
 
 ### Pass variable values as props to component
-```js
+```jsx
 <OptimizelyFeatureVariables
   feature='feature1'
   renderVariables={({ header }) => <Comp1 header={header} />}
@@ -63,26 +63,26 @@ class App extends React.Component {
 ```
 
 ### Switch component rendering based variable enum / value
-```js
+```jsx
 <OptimizelyFeatureVariableSwitch 
   feature='feature1'
- 	variable="variable1">
+  variable="variable1">
   <OptimizelyMatch value="value1">
-	  <Comp1 />
+    <Comp1 />
   </OptimizelyMatch>
 
   <OptimizelyMatch value="value2">
-	  <Comp2 />
+    <Comp2 />
   </OptimizelyMatch>
 
   <OptimizelyMatch default>
-	  <Comp3 />
+    <Comp3 />
   </OptimizelyMatch>
 </OptimizelyFeatureVariableSwitch>
 ```
 
 ### Render based on isFeatureEnabled
-```js
+```jsx
 <OptimizelyFeature feature="feature1"
   renderEnabled={(vars) => <h1>Is enabled</h1>}
   renderDisabled={(vars) => <h1>Is disabled</h1>}
@@ -95,24 +95,18 @@ class App extends React.Component {
 class MyComp extends React.Component {
   constructor(props) {
     super(props)
-  	  const { optimizely } = this.props
-    const isFeat1Enabled = 
-      optimizely.isFeatureEnabled('feat1')
-    const feat1Variables =
-      optimizely.getFeatureVariables('feat1')
-    
-	  this.state = {
+    const { optimizely } = this.props
+    const isFeat1Enabled = optimizely.isFeatureEnabled('feat1')
+    const feat1Variables = optimizely.getFeatureVariables('feat1')
+    this.state = {
        isFeat1Enabled,
        feat1Variables,
     }
-	}
+  }
+
   render() {
   }
 }
 ```
 
 ## Tracking
-
-
-
-#work
