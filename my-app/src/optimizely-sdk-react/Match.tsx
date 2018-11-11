@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { VariableValuesObject } from './OptimizelySDKWrapper'
 
-type ChildrenRenderFunction = (variableValues: VariableValuesObject) => React.ReactNode
+export type ChildrenRenderFunction = (variableValues: VariableValuesObject) => React.ReactNode
 
 export type MatchProps = {
   value?: any
